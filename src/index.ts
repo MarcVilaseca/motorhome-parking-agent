@@ -41,10 +41,6 @@ async function main() {
 
   } catch (error) {
     console.error('\n❌ Error:', error instanceof Error ? error.message : 'Unknown error');
-    if (error instanceof Error && error.stack) {
-      console.error('\nStack trace:', error.stack);
-    }
-    console.error('\nFull error object:', JSON.stringify(error, null, 2));
     console.error('\nIf you see authentication errors, check your ANTHROPIC_API_KEY in .env\n');
     process.exit(1);
   }

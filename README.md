@@ -12,12 +12,13 @@ A simple, pragmatic AI agent built with [Mastra](https://mastra.ai) that helps y
 
 ## Quick Start
 
-### 1. Get an OpenAI API Key
+### 1. Get an Anthropic API Key
 
-1. Go to [OpenAI Platform](https://platform.openai.com/api-keys)
-2. Click "Create new secret key"
-3. Copy your key
-4. Add credits to your account at https://platform.openai.com/settings/organization/billing
+1. Go to [Anthropic Console](https://console.anthropic.com/settings/keys)
+2. Sign up and verify your account
+3. Click "Create Key"
+4. Copy your key
+5. Add credits at https://console.anthropic.com/settings/billing (minimum $5)
 
 ### 2. Set Up the Project
 
@@ -101,7 +102,7 @@ motorhome-parking-agent/
 ## Tech Stack
 
 - **Mastra**: AI agent framework
-- **OpenAI GPT-4o-mini**: LLM provider (fast and cost-effective)
+- **Claude Sonnet 4.5**: Anthropic's latest model with exceptional coding and agentic capabilities
 - **Park4Night API**: Parking spot data
 - **TypeScript**: Type-safe development
 
