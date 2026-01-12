@@ -1,0 +1,28 @@
+{
+  "name": "motorhome-parking-agent",
+  "version": "1.0.0",
+  "description": "AI agent for finding motorhome parking spots using Park4Night",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts"
+  },
+  "keywords": ["mastra", "ai", "agent", "motorhome", "parking", "park4night"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@ai-sdk/anthropic": "^1.0.0",
+    "@mastra/core": "^0.1.0",
+    "ai": "^3.4.0",
+    "axios": "^1.7.0",
+    "dotenv": "^16.4.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0"
+  }
+}
