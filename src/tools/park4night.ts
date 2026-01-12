@@ -33,7 +33,7 @@ export const searchParkingTool = tool({
         }
       );
 
-      const spots = response.data || [];
+      const spots = Array.isArray(response.data) ? response.data : [];
       const topSpots = spots.slice(0, 10).map((spot: ParkingSpot) => ({
         name: spot.nom || 'Unnamed spot',
         latitude: spot.latitude,

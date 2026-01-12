@@ -1,6 +1,10 @@
-import { openai } from '@ai-sdk/openai';
+import { createAnthropic } from '@ai-sdk/anthropic';
 import { generateText } from 'ai';
 import { searchParkingTool, getLocationCoordinatesTool } from '../tools/park4night.js';
+
+const anthropic = createAnthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
 
 const instructions = `You are a helpful assistant that helps motorhome and camper van travelers find parking spots.
 
@@ -21,7 +25,7 @@ Be friendly and helpful. If a location can't be found, suggest alternatives or a
 
 export async function runParkingAgent(query: string) {
   const result = await generateText({
-    model: openai('gpt-4o-mini'),
+    model: anthropic('claude-sonnet-4-5-20250929'),
     system: instructions,
     prompt: query,
     tools: {

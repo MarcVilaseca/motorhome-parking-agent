@@ -22,11 +22,11 @@ async function main() {
 
   try {
     // Check for API key
-    if (!process.env.OPENAI_API_KEY) {
-      console.error('❌ Error: OPENAI_API_KEY not found in environment variables');
+    if (!process.env.ANTHROPIC_API_KEY) {
+      console.error('❌ Error: ANTHROPIC_API_KEY not found in environment variables');
       console.error('\nPlease:');
       console.error('1. Copy .env.example to .env');
-      console.error('2. Get your API key from: https://platform.openai.com/api-keys');
+      console.error('2. Get your API key from: https://console.anthropic.com/settings/keys');
       console.error('3. Add it to your .env file\n');
       process.exit(1);
     }
@@ -41,7 +41,11 @@ async function main() {
 
   } catch (error) {
     console.error('\n❌ Error:', error instanceof Error ? error.message : 'Unknown error');
-    console.error('\nIf you see authentication errors, check your OPENAI_API_KEY in .env\n');
+    if (error instanceof Error && error.stack) {
+      console.error('\nStack trace:', error.stack);
+    }
+    console.error('\nFull error object:', JSON.stringify(error, null, 2));
+    console.error('\nIf you see authentication errors, check your ANTHROPIC_API_KEY in .env\n');
     process.exit(1);
   }
 }
