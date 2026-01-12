@@ -1,4 +1,4 @@
-import { anthropic } from '@ai-sdk/anthropic';
+import { openai } from '@ai-sdk/openai';
 import { generateText } from 'ai';
 import { searchParkingTool, getLocationCoordinatesTool } from '../tools/park4night.js';
 
@@ -21,7 +21,7 @@ Be friendly and helpful. If a location can't be found, suggest alternatives or a
 
 export async function runParkingAgent(query: string) {
   const result = await generateText({
-    model: anthropic('claude-3-5-sonnet-20241022'),
+    model: openai('gpt-4o-mini'),
     system: instructions,
     prompt: query,
     tools: {

@@ -12,11 +12,12 @@ A simple, pragmatic AI agent built with [Mastra](https://mastra.ai) that helps y
 
 ## Quick Start
 
-### 1. Get a Google Gemini API Key
+### 1. Get an OpenAI API Key
 
-1. Go to [Google AI Studio](https://aistudio.google.com/app/apikey)
-2. Click "Create API Key"
+1. Go to [OpenAI Platform](https://platform.openai.com/api-keys)
+2. Click "Create new secret key"
 3. Copy your key
+4. Add credits to your account at https://platform.openai.com/settings/organization/billing
 
 ### 2. Set Up the Project
 
@@ -100,7 +101,7 @@ motorhome-parking-agent/
 ## Tech Stack
 
 - **Mastra**: AI agent framework
-- **Google Gemini**: LLM provider (free tier available)
+- **OpenAI GPT-4o-mini**: LLM provider (fast and cost-effective)
 - **Park4Night API**: Parking spot data
 - **TypeScript**: Type-safe development
 
