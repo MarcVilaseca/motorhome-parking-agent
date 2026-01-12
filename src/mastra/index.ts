@@ -31,7 +31,4 @@ Be friendly and helpful. If a location can't be found, suggest alternatives or a
 
 export const mastra = new Mastra({
   agents: { parkingAgent },
-  bundler: {
-    externals: ['supports-color', 'axios'],
-  },
 });

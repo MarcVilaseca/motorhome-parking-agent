@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { tool } from 'ai';
 import { z } from 'zod';
 
@@ -20,20 +19,22 @@ export const searchParkingTool = tool({
     longitude: z.number().describe('Longitude of the search location'),
   }),
   execute: async ({ latitude, longitude }) => {
-
     try {
-      const response = await axios.get(
-        'https://guest.park4night.com/services/V4.1/lieuxGetFilter.php',
-        {
-          params: {
-            latitude,
-            longitude,
-          },
-          timeout: 10000,
-        }
-      );
+      const url = new URL('https://guest.park4night.com/services/V4.1/lieuxGetFilter.php');
+      url.searchParams.append('latitude', latitude.toString());
+      url.searchParams.append('longitude', longitude.toString());
 
-      const spots = Array.isArray(response.data) ? response.data : [];
+      const response = await fetch(url.toString(), {
+        method: 'GET',
+        signal: AbortSignal.timeout(10000),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const spots = Array.isArray(data) ? data : [];
       const topSpots = spots.slice(0, 10).map((spot: ParkingSpot) => ({
         name: spot.nom || 'Unnamed spot',
         latitude: spot.latitude,
@@ -64,26 +65,29 @@ export const getLocationCoordinatesTool = tool({
     location: z.string().describe('The location name, city, or address to convert to coordinates'),
   }),
   execute: async ({ location }) => {
-
     try {
       // Using Nominatim (OpenStreetMap) for geocoding - free and no API key needed
-      const response = await axios.get(
-        'https://nominatim.openstreetmap.org/search',
-        {
-          params: {
-            q: location,
-            format: 'json',
-            limit: 1,
-          },
-          headers: {
-            'User-Agent': 'MotorhomeParkingAgent/1.0',
-          },
-          timeout: 10000,
-        }
-      );
+      const url = new URL('https://nominatim.openstreetmap.org/search');
+      url.searchParams.append('q', location);
+      url.searchParams.append('format', 'json');
+      url.searchParams.append('limit', '1');
 
-      if (response.data && response.data.length > 0) {
-        const result = response.data[0];
+      const response = await fetch(url.toString(), {
+        method: 'GET',
+        headers: {
+          'User-Agent': 'MotorhomeParkingAgent/1.0',
+        },
+        signal: AbortSignal.timeout(10000),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data && data.length > 0) {
+        const result = data[0];
         return {
           latitude: parseFloat(result.lat),
           longitude: parseFloat(result.lon),
