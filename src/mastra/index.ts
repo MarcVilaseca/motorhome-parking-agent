@@ -1,10 +1,9 @@
-import { Mastra } from '@mastra/core';
+import { Mastra, Agent } from '@mastra/core';
 import { searchParkingTool, getLocationCoordinatesTool } from './tools/park4night.js';
 
-export const mastra = new Mastra({
-  agents: {
-    parkingAgent: {
-      instructions: `You are a helpful assistant that helps motorhome and camper van travelers find parking spots.
+const parkingAgent = new Agent({
+  name: 'parkingAgent',
+  instructions: `You are a helpful assistant that helps motorhome and camper van travelers find parking spots.
 
 Your primary job is to:
 1. Understand where the user wants to find parking
@@ -20,11 +19,16 @@ When presenting parking spots, include:
 - Coordinates for GPS
 
 Be friendly and helpful. If a location can't be found, suggest alternatives or ask for clarification.`,
-      model: 'anthropic/claude-sonnet-4-5-20250929',
-      tools: {
-        'get-coordinates': getLocationCoordinatesTool,
-        'search-parking': searchParkingTool,
-      },
-    },
+  model: {
+    provider: 'ANTHROPIC',
+    name: 'claude-sonnet-4-5-20250929',
   },
+  tools: {
+    getCoordinates: getLocationCoordinatesTool,
+    searchParking: searchParkingTool,
+  },
+});
+
+export const mastra = new Mastra({
+  agents: { parkingAgent },
 });
